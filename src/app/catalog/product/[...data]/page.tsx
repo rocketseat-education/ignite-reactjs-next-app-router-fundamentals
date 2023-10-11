@@ -1,4 +1,4 @@
-'use client'
+import { AddToCartButton } from './add-to-cart-button'
 
 interface ProductProps {
   params: {
@@ -13,14 +13,11 @@ interface ProductProps {
 
 // Renderizar um componente pelo lado do servidor de forma PARCIAL
 
-export default function Product({ params }: ProductProps) {
+export default async function Product({ params }: ProductProps) {
+  const response = await fetch('https://api.github.com/users/diego3g')
+  const user = await response.json()
+
   const [productId, size, color] = params.data
-
-  console.log(params)
-
-  function addToCart() {
-    console.log('Adicionou ao carrinho')
-  }
 
   return (
     <div>
@@ -28,7 +25,7 @@ export default function Product({ params }: ProductProps) {
       <p>Size: {size}</p>
       <p>Color: {color}</p>
 
-      <button onClick={addToCart}>Adicionar ao carrinho</button>
+      <AddToCartButton />
     </div>
   )
 }
